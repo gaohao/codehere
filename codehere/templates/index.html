@@ -3,6 +3,7 @@
 <head>
     <title>Code Here</title>
     <script src="https://ajax.googleapis.com/ajax/libs/prototype/1.7.1.0/prototype.js"></script>
+    
     <style>
         body
         {
@@ -31,16 +32,23 @@
         }
         #editor
         {
-            border: 5px;
             margin-top: 5px;
             width: 100%;
             height: 400px;
         }
+        #submit
+        {
+            background: grey;
+            text-align: center;
+            width: 100% ;
+            margin-top: 400px;
+        }
         #output
         {
+            border: 5px;
             width: 100% ;
-            height: 100px;
-            margin-top: 100px;
+            height: 150px;
+            margin-top: 0px;
         }
     </style>
 </head>
@@ -49,8 +57,58 @@
         Code Here
     </div>
     <div id="useage">
-        <button class="butt" id="Submit">
-            Submit</button>
+        <label>
+            <input style="vertical-align:middle" type="radio" name="lang" value="C" checked="checked" onclick="setlang(this.value)">
+            <span style="vertical-align:middle" class="label">C</span>
+        </label>
+        <label>
+            <input style="vertical-align:middle" type="radio" name="lang" value="C++" onclick="setlang(this.value)">
+            <span style="vertical-align:middle" class="label">C++</span>
+        </label>
+        <label>
+            <input style="vertical-align:middle" type="radio" name="lang" value="D" onclick="setlang(this.value)">
+            <span style="vertical-align:middle" class="label">D</span>
+        </label>
+        <label>
+            <input style="vertical-align:middle" type="radio" name="lang" value="Haskell" onclick="setlang(this.value)">
+            <span style="vertical-align:middle" class="label">Haskell</span>
+        </label>
+        <label>
+            <input style="vertical-align:middle" type="radio" name="lang" value="Lua" onclick="setlang(this.value)">
+            <span style="vertical-align:middle" class="label">Lua</span>
+        </label>
+        <label>
+            <input style="vertical-align:middle" type="radio" name="lang" value="OCaml" onclick="setlang(this.value)">
+            <span style="vertical-align:middle" class="label">OCaml</span>
+        </label>
+        <label>
+            <input style="vertical-align:middle" type="radio" name="lang" value="PHP" onclick="setlang(this.value)">
+            <span style="vertical-align:middle" class="label">PHP</span>
+        </label>
+        <label>
+            <input style="vertical-align:middle" type="radio" name="lang" value="Perl" onclick="setlang(this.value)">
+            <span style="vertical-align:middle" class="label">Perl</span>
+        </label>
+        <label>
+            <input style="vertical-align:middle" type="radio" name="lang" value="Plain Text" onclick="setlang(this.value)">
+            <span style="vertical-align:middle" class="label">Plain Text</span>
+        </label>
+        <label>
+            <input style="vertical-align:middle" type="radio" name="lang" value="Python" onclick="setlang(this.value)">
+            <span style="vertical-align:middle" class="label">Python</span>
+        </label>
+        <label>
+            <input style="vertical-align:middle" type="radio" name="lang" value="Ruby" onclick="setlang(this.value)">
+            <span style="vertical-align:middle" class="label">Ruby</span>
+        </label>
+        <label>
+            <input style="vertical-align:middle" type="radio" name="lang" value="Scheme" onclick="setlang(this.value)">
+            <span style="vertical-align:middle" class="label">Scheme</span>
+        </label>
+        <label>
+            <input style="vertical-align:middle" type="radio" name="lang" value="Tcl" onclick="setlang(this.value)">
+            <span style="vertical-align:middle" class="label">Tcl</span>
+        </label>
     </div>
     <div id="editor">#include "stdio.h"
 int main() {
@@ -58,6 +116,7 @@ int main() {
     return 0;
 }
     </div>
+    <div id="submit"><button class="butt" id="Submit">Submit</button></div>
     <div id="output">
 
     </div>
@@ -67,30 +126,73 @@ int main() {
     editor.setTheme("ace/theme/monokai");
     editor.getSession().setMode("ace/mode/c_cpp");
 
-    var output = ace.edit("output");
-    output.setTheme("ace/theme/monokai");
-    output.getSession().setMode("ace/mode/c_cpp");
 
+    var selectedlang = "C";
     window.onload = function () {
         w = window;
         j = document;
 
         submit = j.getElementById("Submit");
-
+        output = j.getElementById("output");
 
         submit.onclick = function () {
             new Ajax.Request('/codepad/', {
                 method:'post',
-                parameters: {p: editor.getValue()},
+                parameters: {code: editor.getValue(), lang: selectedlang},
                 onSuccess: function(transport) {
                     var response = transport.responseText;
-                    output.setValue(response);
+                    output.innerHTML = response;
+
                 },
                 onFailure: function() { alert('Something went wrong...'); }
             });
         }
     }
 
+
+    function setlang(value) {
+        selectedlang = value;
+        switch (selectedlang) {
+            case "C":
+            case "C++":
+            editor.getSession().setMode("ace/mode/c_cpp");
+            break;
+            case "D":
+            case "Plain Text":
+            case "Scheme":
+             case "Haskell":
+            editor.getSession().setMode("ace/mode/text");
+            break;
+            case "Lua":
+            editor.getSession().setMode("ace/mode/lua");
+            break;
+            case "OCaml":
+            editor.getSession().setMode("ace/mode/ocaml");
+            break;
+            case "PHP":
+            editor.getSession().setMode("ace/mode/php");
+            break;
+            case "Perl":
+            editor.getSession().setMode("ace/mode/perl");
+            break;
+            case "Python":
+            editor.getSession().setMode("ace/mode/python");
+            break;
+            case "Ruby":
+            editor.getSession().setMode("ace/mode/ruby");
+            break;
+            case "Tcl":
+            editor.getSession().setMode("ace/mode/tcl");
+            break;
+            default:
+            editor.getSession().setMode("ace/mode/text");
+            break;
+
+        }
+    }
+    function hellotemplate() {
+    
+    }
     </script>
 </body>
 </html>

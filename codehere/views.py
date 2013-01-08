@@ -18,8 +18,9 @@ def index(request):
 @csrf_exempt
 def codepad(request):
 
-    query = request.POST.get('p', '')
-    data = {'code': query, 'lang': 'C',
+    code = request.POST.get('code', '')
+    lang = request.POST.get('lang', '')
+    data = {'code': code, 'lang': lang,
                      'private': 'False', 'run': 'True',
                      'submit': 'Submit'}
     r = requests.post("http://codepad.org/", data=data)
@@ -38,11 +39,8 @@ def codepad(request):
             ri = i
             rj = j
             i = html.find('<pre>', i + 5)
-        
-        if html[ri + 5] == '\n' :
-            re = html[ri + 6 : rj]
-        else :
-            re = html[ri + 5 : rj]
+         
+        re = html[ri : rj+6]
 
         return HttpResponse(re)
     else :
