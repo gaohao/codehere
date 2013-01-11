@@ -65,11 +65,12 @@ STATIC_URL = '/static/'
 
 # Additional locations of static files
 STATICFILES_DIRS = (
+    os.path.dirname(__file__) + '/static/',
     # Put strings here, like "/home/html/static" or "C:/www/django/static".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
 )
-
+print os.path.dirname(__file__) + '/static/'
 # List of finder classes that know how to find static files in
 # various locations.
 STATICFILES_FINDERS = (
