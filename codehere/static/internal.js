@@ -1,9 +1,1 @@
-$.getScript("http://www.parsecdn.com/js/parse-1.1.14.min.js", function() {
-    $(document).ready(function() {
-        $.getScript("https://raw.github.com/Mattieuga/test/master/internal_anon_user.js");
-        $.getScript("https://raw.github.com/Mattieuga/test/master/internal_parse_subclasses.js");
-        $.getScript("https://raw.github.com/Mattieuga/test/master/build_html.js", function() {
-            $(window).trigger("html_loaded");
-        });
-    });
-});
+Parse.initialize("VzxfBOvkAgd2r7F6honLMmvbxnUpy1jxKS39s2ug", "cSZ1qtC3od7FB9yZ9kB1zejCP9NK77FfNsfwi4VG");
