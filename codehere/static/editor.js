@@ -2,7 +2,6 @@ var editor = ace.edit("editor");
     editor.setTheme("ace/theme/monokai");
     editor.getSession().setMode("ace/mode/c_cpp");
 
-
 var selectedlang = "C";
 window.onload = function () {
     w = window;
@@ -11,20 +10,34 @@ window.onload = function () {
     submit = j.getElementById("Submit");
     output = j.getElementById("output");
 
-    var Code = Parse.Object.extend('Code');
-    var code = new Code();
-    code.set($.password(16), editor.getValue());
-    code.save(null, {
-      success: function(gameScore) {
-        // The object was saved successfully.
-      },
-      error: function(gameScore, error) {
-        // The save failed.
-        // error is a Parse.Error with an error code and description.
-      }
-    });
+
 
     submit.onclick = function () {
+        var Code = Parse.Object.extend('Code');
+        var code = new Code();
+        code.set('content', editor.getValue());
+        code.save(null, {
+          success: function(code) {
+            // The object was saved successfully.
+          },
+          error: function(code, error) {
+            // The save failed.
+            // error is a Parse.Error with an error code and description.
+          }
+        });
+
+        var query = new Parse.Query(Code);
+        query.get(code.id, {
+          success: function(code) {
+            var content = code.get("content");
+            alert(content);
+          },
+          error: function(code, error) {
+            // The object was not retrieved successfully.
+            // error is a Parse.Error with an error code and description.
+          }
+        });
+        
         new Ajax.Request('/codepad/', {
             method:'post',
             parameters: {code: editor.getValue(), lang: selectedlang},
@@ -37,7 +50,6 @@ window.onload = function () {
         });
     }
 }
-
 
 function setlang(value) {
     selectedlang = value;
