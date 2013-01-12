@@ -26,17 +26,17 @@ window.onload = function () {
           }
         });
 
-        var query = new Parse.Query(Code);
-        query.get(code.id, {
-          success: function(code) {
-            var content = code.get("content");
-            alert(content);
-          },
-          error: function(code, error) {
+        //var query = new Parse.Query(Code);
+        //query.get(code.id, {
+        //  success: function(code) {
+        //    var content = code.get("content");
+        //    alert(content);
+        //  },
+        //  error: function(code, error) {
             // The object was not retrieved successfully.
             // error is a Parse.Error with an error code and description.
-          }
-        });
+        //  }
+        //});
         
         new Ajax.Request('/codepad/', {
             method:'post',
