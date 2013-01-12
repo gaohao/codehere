@@ -10,11 +10,13 @@ window.onload = function () {
     submit = j.getElementById("Submit");
     output = j.getElementById("output");
 
-
+    var Code = Parse.Object.extend('Code');
+    var code = null; 
 
     submit.onclick = function () {
-        var Code = Parse.Object.extend('Code');
-        var code = new Code();
+        if (code == null) {
+          code = new Code();
+        }
         code.set('content', editor.getValue());
         code.save(null, {
           success: function(code) {
@@ -26,17 +28,26 @@ window.onload = function () {
           }
         });
 
-        //var query = new Parse.Query(Code);
-        //query.get(code.id, {
-        //  success: function(code) {
-        //    var content = code.get("content");
-        //    alert(content);
-        //  },
-        //  error: function(code, error) {
+        code.fetch({
+          success: function(myObject) {
+            // The object was refreshed successfully.
+          },
+          error: function(myObject, error) {
+            // The object was not refreshed successfully.
+            // error is a Parse.Error with an error code and description.
+          }
+        })
+        var query = new Parse.Query(Code);
+        query.get(code.id, {
+          success: function(code) {
+            var content = code.get("content");
+            //alert(content);
+          },
+          error: function(code, error) {
             // The object was not retrieved successfully.
             // error is a Parse.Error with an error code and description.
-        //  }
-        //});
+          }
+        });
         
         new Ajax.Request('/codepad/', {
             method:'post',
