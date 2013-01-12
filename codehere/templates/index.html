@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:fb="http://ogp.me/ns/fb#" lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
 <head>
     <title>Code Here</title>
     <script src="https://ajax.googleapis.com/ajax/libs/prototype/1.7.1.0/prototype.js"></script>
@@ -52,6 +52,10 @@
             height: 150px;
             margin-top: 0px;
         }
+        .fb-like
+        {
+            overflow: hidden;
+        }
     </style>
 </head>
 <body>
@@ -83,18 +87,20 @@
          ref.parentNode.insertBefore(js, ref);
         }(document, /*debug*/ false));
 
+
         (function(d, s, id) {
-          var js, fjs = d.getElementsByTagName(s)[0];
-          if (d.getElementById(id)) return;
-          js = d.createElement(s); js.id = id;
-          js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=117625258411235";
-          fjs.parentNode.insertBefore(js, fjs);
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) return;
+        js = d.createElement(s); js.id = id;
+        js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=117625258411235";
+        fjs.parentNode.insertBefore(js, fjs);
         }(document, 'script', 'facebook-jssdk'));
     </script>
 
     <div id="banner">
         Code Here
-        <fb:like href="http://codehere.herokuapp.com/" send="true" layout="button_count" width="450" show_faces="true"></fb:like>
+        <div class="fb-like" data-href="http://codehere.herokuapp.com/" data-send="true" data-layout="button_count" data-width="450" data-show-faces="true">
+        </div>
     </div>
     <div id="useage">
         <label>
