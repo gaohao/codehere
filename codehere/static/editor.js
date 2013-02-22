@@ -10,17 +10,38 @@ window.onload = function () {
     submit = j.getElementById("Submit");
     output = j.getElementById("output");
 
+    submit2 = j.getElementById("Submit2");
+    output2 = j.getElementById("output2");
+
     var Code = Parse.Object.extend('Code');
-    var code = null; 
+
+    var code_ = null; 
+
+    submit2.onclick = function () {
+      //alert(output2.value);
+      var query = new Parse.Query(Code);
+        query.get(output2.value, {
+          success: function(code) {
+            output.innerHTML = code.get("content")
+            //alert(content);
+          },
+          error: function(code, error) {
+            // The object was not retrieved successfully.
+            // error is a Parse.Error with an error code and description.
+            alert(error.message);
+          }
+        });
+    }
 
     submit.onclick = function () {
-        if (code == null) {
-          code = new Code();
+        if (code_ == null) {
+          code_ = new Code();
         }
-        code.set('content', editor.getValue());
-        code.save(null, {
+        code_.set('content', editor.getValue());
+
+        code_.save(null, {
           success: function(code) {
-            // The object was saved successfully.
+            
           },
           error: function(code, error) {
             // The save failed.
@@ -28,24 +49,26 @@ window.onload = function () {
           }
         });
 
-        code.fetch({
-          success: function(myObject) {
+        //code.fetch({
+        //  success: function(myObject) {
             // The object was refreshed successfully.
-          },
-          error: function(myObject, error) {
+        //  },
+        //  error: function(myObject, error) {
             // The object was not refreshed successfully.
             // error is a Parse.Error with an error code and description.
-          }
-        })
+        //  }
+        //})
         var query = new Parse.Query(Code);
-        query.get(code.id, {
+        
+        query.get(code_.id, {
           success: function(code) {
             var content = code.get("content");
-            //alert(content);
+            output2.value = code.id;
           },
           error: function(code, error) {
             // The object was not retrieved successfully.
             // error is a Parse.Error with an error code and description.
+            alert(error.message);
           }
         });
         
