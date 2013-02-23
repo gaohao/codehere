@@ -6,6 +6,8 @@
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
     <script type="text/javascript" src="http://www.parsecdn.com/js/parse-1.1.15.min.js"></script>
     <script type="text/javascript" src="static/internal.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="http://vinestream.co/css/bootstrap.min.css" rel="stylesheet" media="screen">
     <style type="text/css">
         body
         {
@@ -17,9 +19,8 @@
             background-color: black;
             font-weight: bold;
             text-align: center;
-
         }
-        #useage
+        #usage
         {
             background: grey;
             text-align: center;
@@ -32,38 +33,36 @@
         {
             color: #ff0000;
         }
-        #editor
+        #editor_div
         {
-            margin-top: 5px;
             width: 100%;
             height: 400px;
         }
-        #submit
+        #editor
         {
-            background: grey;
-            text-align: center;
-            width: 100% ;
-            margin-top: 400px;
+            width: 100%;
+            height: 400px;
         }
-        #submit2
+        #submit_div
         {
             background: grey;
             text-align: center;
-            width: 100% ;
-            margin-top: 400px;
+        }
+        #get_div
+        {
+            background: grey;
+            text-align: center;
         }
         #output
         {
             border: 5px;
-            width: 100% ;
             height: 150px;
             margin-top: 0px;
         }
-        #output2
+        #code_id
         {
             border: 5px;
-            width: 100% ;
-            height: 150px;
+            width: 100%;
             margin-top: 0px;
         }
         .fb-like
@@ -124,81 +123,89 @@
         fjs.parentNode.insertBefore(js, fjs);
         }(document, 'script', 'facebook-jssdk'));
     </script>
-
-    <div id="banner">
-        Code Here
-        <div class="fb-like" data-href="http://codehere.herokuapp.com/" data-layout="button_count" data-width="450" data-show-faces="true">
+    <div class="row-fluid">
+        <div id="banner" class="span12">
+            Code Here
+            <div class="fb-like" data-href="http://codehere.herokuapp.com/" data-layout="button_count" data-width="450" data-show-faces="true">
+            </div>
         </div>
     </div>
-    <div id="useage">
-        <label>
+    <div id="usage" class="row-fluid">
+        <div class="span1"> 
             <input style="vertical-align:middle" type="radio" name="lang" value="C" checked="checked" onclick="setlang(this.value)">
             <span style="vertical-align:middle" class="label">C</span>
-        </label>
-        <label>
+        </div>
+        <div class="span1">
             <input style="vertical-align:middle" type="radio" name="lang" value="C++" onclick="setlang(this.value)">
             <span style="vertical-align:middle" class="label">C++</span>
-        </label>
-        <label>
+        </div>
+        <div class="span1">
             <input style="vertical-align:middle" type="radio" name="lang" value="D" onclick="setlang(this.value)">
             <span style="vertical-align:middle" class="label">D</span>
-        </label>
-        <label>
+        </div>
+        <div class="span1">
             <input style="vertical-align:middle" type="radio" name="lang" value="Haskell" onclick="setlang(this.value)">
             <span style="vertical-align:middle" class="label">Haskell</span>
-        </label>
-        <label>
+        </div>
+        <div class="span1">
             <input style="vertical-align:middle" type="radio" name="lang" value="Lua" onclick="setlang(this.value)">
             <span style="vertical-align:middle" class="label">Lua</span>
-        </label>
-        <label>
+        </div>
+        <div class="span1">
             <input style="vertical-align:middle" type="radio" name="lang" value="OCaml" onclick="setlang(this.value)">
             <span style="vertical-align:middle" class="label">OCaml</span>
-        </label>
-        <label>
+        </div>
+        <div class="span1">
             <input style="vertical-align:middle" type="radio" name="lang" value="PHP" onclick="setlang(this.value)">
             <span style="vertical-align:middle" class="label">PHP</span>
-        </label>
-        <label>
+        </div>
+        <div class="span1">
             <input style="vertical-align:middle" type="radio" name="lang" value="Perl" onclick="setlang(this.value)">
             <span style="vertical-align:middle" class="label">Perl</span>
-        </label>
-        <label>
+        </div>
+        <div class="span1">
             <input style="vertical-align:middle" type="radio" name="lang" value="Plain Text" onclick="setlang(this.value)">
             <span style="vertical-align:middle" class="label">Plain Text</span>
-        </label>
-        <label>
+        </div>
+        <div class="span1">
             <input style="vertical-align:middle" type="radio" name="lang" value="Python" onclick="setlang(this.value)">
             <span style="vertical-align:middle" class="label">Python</span>
-        </label>
-        <label>
+        </div>
+        <div class="span1">
             <input style="vertical-align:middle" type="radio" name="lang" value="Ruby" onclick="setlang(this.value)">
             <span style="vertical-align:middle" class="label">Ruby</span>
-        </label>
-        <label>
+        </div>
+        <div class="span1">
             <input style="vertical-align:middle" type="radio" name="lang" value="Scheme" onclick="setlang(this.value)">
             <span style="vertical-align:middle" class="label">Scheme</span>
-        </label>
-        <label>
+        </div>
+        <div class="span12">
             <input style="vertical-align:middle" type="radio" name="lang" value="Tcl" onclick="setlang(this.value)">
             <span style="vertical-align:middle" class="label">Tcl</span>
-        </label>
+        </div>
     </div>
-    <div id="editor">#include "stdio.h"
+    <div id="editor_div" class="row-fluid">
+        <div id="editor" class="span12">#include "stdio.h"
 int main() {
     printf("Hello World");
     return 0;
 }
+        </div>
     </div>
-    <div id="submit">
-        <button class="butt" id="Submit2">Submit2</button> 
-        <input id="output2" value="a">
+    <div class="row-fluid">
+        <div class="span12">
+            <input id="code_id" value="">
+        </div>
     </div>
-    <div id="submit"><button class="butt" id="Submit">Submit</button></div>
-    <div id="output">
-
+    <div class="row-fluid">
+        <div id="get_div"  class="span6"><button id="get">Get Code</button> </div>
+        <div id="submit_div" class="span6"><button id="submit">Submit</button></div>
+    </div>
+    <div class="row-fluid">
+        <div id="output" class="span12"></div>
     </div>
     <script src="http://d1n0x3qji82z53.cloudfront.net/src-min-noconflict/ace.js" type="text/javascript" charset="utf-8"></script>
     <script type="text/javascript" src="static/editor.js"></script>
+    <script src="http://vinestream.co/js/bootstrap.min.js"></script>
 </body>
 </html>
