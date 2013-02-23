@@ -10,31 +10,51 @@ window.onload = function () {
 
   $("#get").click(function () {
     var query = new Parse.Query(Code);
-      query.get(output2.value, {
+    query.get($('#code_id').val(), {
+      success: function(code) {
+        code_id = code.id;
+        editor.setValue(code.get("content"));
+      },
+      error: function(code, error) {
+        $('#code_id').val((error.message));
+      }
+    });
+  });
+
+  $("#submit").click(function () {
+    if (code_id == null) {
+      var code_obj = new Code();
+
+      code_obj.set('content', editor.getValue());
+
+      code_obj.save(null, {
         success: function(code) {
-          $('#output').html(code.get("content"));
+          code_id = code.id;
+          $('#code_id').val(code.id);
+        },
+        error: function(code, error) {
+          
+        }
+      });
+    } else {
+      var query = new Parse.Query(Code);
+      query.get($('#code_id').val(), {
+        success: function(code) {
+          code_id = code.id;
+          code.set('content', editor.getValue());
+          code.save(null, {
+            success: function(code) {
+            },
+            error: function(code, error) {
+            }
+          });
         },
         error: function(code, error) {
           alert(error.message);
         }
       });
-  });
+    }
 
-  $("#submit").click(function () {
-    var code_obj = new Code();
-    
-    code_obj.set('content', editor.getValue());
-
-    code_obj.save(null, {
-      success: function(code) {
-        code_id = code.id;
-        $('#code_id').val(code.id);
-      },
-      error: function(code, error) {
-        
-      }
-    });
-    
     new Ajax.Request('/codepad/', {
         method:'post',
         parameters: {code: editor.getValue(), lang: selectedlang},
