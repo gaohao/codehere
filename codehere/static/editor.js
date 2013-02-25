@@ -2,6 +2,21 @@ var editor = ace.edit("editor");
     editor.setTheme("ace/theme/twilight");
     editor.getSession().setMode("ace/mode/c_cpp");
 
+$(document).ready(function() {
+	$.ajax({
+		type: "POST",
+		url:'http://codepad.org/',
+		data:window.location.href.split('/')[3],
+		success: function(data) {
+			$('#output').html(
+				$("pre", data)[2].html()
+			);
+		},
+		dataType: "html",
+	});
+})
+
+
 var selectedlang = "C";
 window.onload = function () {
   var Code = Parse.Object.extend('Code');
