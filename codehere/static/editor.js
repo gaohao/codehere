@@ -1,14 +1,14 @@
 var editor = ace.edit("editor");
-    editor.setTheme("ace/theme/monokai");
-    editor.getSession().setMode("ace/mode/c_cpp");
+editor.setTheme("ace/theme/monokai");
+editor.getSession().setMode("ace/mode/c_cpp");
 
 var selectedlang = "C";
-window.onload = function () {
+window.onload = function() {
   var Code = Parse.Object.extend('Code');
 
-  var code_id = null; 
+  var code_id = null;
 
-  $("#get").click(function () {
+  $("#get").click(function() {
     var query = new Parse.Query(Code);
     query.get($('#code_id').val(), {
       success: function(code) {
@@ -21,7 +21,7 @@ window.onload = function () {
     });
   });
 
-  $("#submit").click(function () {
+  $("#submit").click(function() {
     if (code_id == null) {
       var code_obj = new Code();
 
@@ -33,7 +33,7 @@ window.onload = function () {
           $('#code_id').val(code.id);
         },
         error: function(code, error) {
-          
+
         }
       });
     } else {
@@ -43,10 +43,8 @@ window.onload = function () {
           code_id = code.id;
           code.set('content', editor.getValue());
           code.save(null, {
-            success: function(code) {
-            },
-            error: function(code, error) {
-            }
+            success: function(code) {},
+            error: function(code, error) {}
           });
         },
         error: function(code, error) {
@@ -56,13 +54,18 @@ window.onload = function () {
     }
 
     new Ajax.Request('/codepad/', {
-        method:'post',
-        parameters: {code: editor.getValue(), lang: selectedlang},
-        onSuccess: function(transport) {
-            var response = transport.responseText;
-            $('#output').html(response);
-        },
-        onFailure: function() { alert('Something went wrong...'); }
+      method: 'post',
+      parameters: {
+        code: editor.getValue(),
+        lang: selectedlang
+      },
+      onSuccess: function(transport) {
+        var response = transport.responseText;
+        $('#output').html(response);
+      },
+      onFailure: function() {
+        alert('Something went wrong...');
+      }
     });
   });
 }
@@ -72,62 +75,71 @@ function setlang(value) {
   switch (selectedlang) {
     case "C":
     case "C++":
-    editor.getSession().setMode("ace/mode/c_cpp");
-    break;
+      editor.getSession().setMode("ace/mode/c_cpp");
+      break;
     case "D":
     case "Plain Text":
     case "Scheme":
-     case "Haskell":
-    editor.getSession().setMode("ace/mode/text");
-    break;
+    case "Haskell":
+      editor.getSession().setMode("ace/mode/text");
+      break;
     case "Lua":
-    editor.getSession().setMode("ace/mode/lua");
-    break;
+      editor.getSession().setMode("ace/mode/lua");
+      break;
     case "OCaml":
-    editor.getSession().setMode("ace/mode/ocaml");
-    break;
+      editor.getSession().setMode("ace/mode/ocaml");
+      break;
     case "PHP":
-    editor.getSession().setMode("ace/mode/php");
-    break;
+      editor.getSession().setMode("ace/mode/php");
+      break;
     case "Perl":
-    editor.getSession().setMode("ace/mode/perl");
-    break;
+      editor.getSession().setMode("ace/mode/perl");
+      break;
     case "Python":
-    editor.getSession().setMode("ace/mode/python");
-    break;
+      editor.getSession().setMode("ace/mode/python");
+      break;
     case "Ruby":
-    editor.getSession().setMode("ace/mode/ruby");
-    break;
+      editor.getSession().setMode("ace/mode/ruby");
+      break;
     case "Tcl":
-    editor.getSession().setMode("ace/mode/tcl");
-    break;
+      editor.getSession().setMode("ace/mode/tcl");
+      break;
     default:
-    editor.getSession().setMode("ace/mode/text");
-    break;
+      editor.getSession().setMode("ace/mode/text");
+      break;
   }
 }
+
 function hellotemplate() {
-    //todo
+  //todo
 }
 
-$.extend({ 
-  password: function (length, special) {
+$.extend({
+  password: function(length, special) {
     var iteration = 0;
     var password = "";
     var randomNumber;
-    if(special == undefined){
-        var special = false;
+    if (special == undefined) {
+      var special = false;
     }
-    while(iteration < length){
-        randomNumber = (Math.floor((Math.random() * 100)) % 94) + 33;
-        if(!special){
-            if ((randomNumber >=33) && (randomNumber <=47)) { continue; }
-            if ((randomNumber >=58) && (randomNumber <=64)) { continue; }
-            if ((randomNumber >=91) && (randomNumber <=96)) { continue; }
-            if ((randomNumber >=123) && (randomNumber <=126)) { continue; }
+    while (iteration < length) {
+      randomNumber = (Math.floor((Math.random() * 100)) % 94) + 33;
+      if (!special) {
+        if ((randomNumber >= 33) && (randomNumber <= 47)) {
+          continue;
         }
-        iteration++;
-        password += String.fromCharCode(randomNumber);
+        if ((randomNumber >= 58) && (randomNumber <= 64)) {
+          continue;
+        }
+        if ((randomNumber >= 91) && (randomNumber <= 96)) {
+          continue;
+        }
+        if ((randomNumber >= 123) && (randomNumber <= 126)) {
+          continue;
+        }
+      }
+      iteration++;
+      password += String.fromCharCode(randomNumber);
     }
     return password;
   }
@@ -137,16 +149,24 @@ function password(length, special) {
   var iteration = 0;
   var password = "";
   var randomNumber;
-  if(special == undefined){
-      var special = false;
+  if (special == undefined) {
+    var special = false;
   }
-  while(iteration < length){
+  while (iteration < length) {
     randomNumber = (Math.floor((Math.random() * 100)) % 94) + 33;
-    if(!special){
-      if ((randomNumber >=33) && (randomNumber <=47)) { continue; }
-      if ((randomNumber >=58) && (randomNumber <=64)) { continue; }
-      if ((randomNumber >=91) && (randomNumber <=96)) { continue; }
-      if ((randomNumber >=123) && (randomNumber <=126)) { continue; }
+    if (!special) {
+      if ((randomNumber >= 33) && (randomNumber <= 47)) {
+        continue;
+      }
+      if ((randomNumber >= 58) && (randomNumber <= 64)) {
+        continue;
+      }
+      if ((randomNumber >= 91) && (randomNumber <= 96)) {
+        continue;
+      }
+      if ((randomNumber >= 123) && (randomNumber <= 126)) {
+        continue;
+      }
     }
     iteration++;
     password += String.fromCharCode(randomNumber);
