@@ -59,15 +59,17 @@ $(document).ready(function() {
 			fetchCode($('#code_id').val());
 		}
 
-		new Ajax.Request('/codepad/', {
-			method:'post',
-			parameters: {code: editor.getValue(), lang: selectedlang},
-			onSuccess: function(transport) {
-				var response = transport.responseText;
-				$('#output').html(response);
-			},
-			onFailure: function() { alert('Something went wrong...'); }
-		});
+		/*
+		 *new Ajax.Request('/codepad/', {
+		 *    method:'post',
+		 *    parameters: {code: editor.getValue(), lang: selectedlang},
+		 *    onSuccess: function(transport) {
+		 *        var response = transport.responseText;
+		 *        $('#output').html(response);
+		 *    },
+		 *    onFailure: function() { alert('Something went wrong...'); }
+		 *});
+		 */
 	});
 
 	url_split = window.location.href.split('/');
