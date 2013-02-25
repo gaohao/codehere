@@ -7,11 +7,10 @@ $(document).ready(function() {
 
 	var code_id = null;
 
-	function fetchCode(code_id) {
+	function submitCode(code_id) {
 		var query = new Parse.Query(Code);
 		query.get(code_id, {
 			success: function(code) {
-				console.log(code);
 				code_id = code.id;
 				code.set('content', editor.getValue());
 				code.save(null, {
@@ -27,9 +26,9 @@ $(document).ready(function() {
 		});
 	}
 
-	$("#get").click(function () {
+	function fetchCode(code_id) {
 		var query = new Parse.Query(Code);
-		query.get($('#code_id').val(), {
+		query.get(code_id, {
 			success: function(code) {
 				code_id = code.id;
 				editor.setValue(code.get("content"));
@@ -38,6 +37,10 @@ $(document).ready(function() {
 				$('#code_id').val((error.message));
 			}
 		});
+	}
+
+	$("#get").click(function () {
+		fetchCode($('#code_id').val());
 	});
 
 	$("#submit").click(function () {
@@ -51,12 +54,10 @@ $(document).ready(function() {
 					code_id = code.id;
 					$('#code_id').val(code.id);
 				},
-				error: function(code, error) {
-
-				}
+				error: function(code, error) {}
 			});
 		} else {
-			fetchCode($('#code_id').val());
+			submitCode($('#code_id').val());
 		}
 
 		/*
@@ -76,6 +77,7 @@ $(document).ready(function() {
 
 	if (url_split.length >= 4 && url_split[3] != "") {
 		fetchCode(url_split[3]);
+		$('#code_id').val(url_split[3]);
 	}
 })
 
