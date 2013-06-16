@@ -42,7 +42,7 @@ $(document).ready(function() {
     });
 
     $("#submit").click(function() {
-        if (code_id == null) {
+        if (code_id === null) {
             var code_obj = new Code();
 
             code_obj.set('content', editor.getValue());
@@ -77,11 +77,11 @@ $(document).ready(function() {
 
     url_split = window.location.href.split('/');
 
-    if (url_split.length >= 4 && url_split[3] != "") {
+    if (url_split.length >= 4 && url_split[3] !== "") {
         fetchCode(url_split[3]);
         $('#code_id').val(url_split[3]);
     }
-})
+});
 
 
 var selectedlang = "C";
@@ -125,75 +125,4 @@ function setlang(value) {
             editor.getSession().setMode("ace/mode/text");
             break;
     }
-}
-
-function hellotemplate() {
-  //todo
-}
-
-$.extend({
-    password: function(length, special) {
-        var iteration = 0;
-        var password = "";
-        var randomNumber;
-        if (special == undefined) {
-            var special = false;
-        }
-        while (iteration < length) {
-            randomNumber = (Math.floor((Math.random() * 100)) % 94) + 33;
-            if (!special) {
-                if ((randomNumber >= 33) && (randomNumber <= 47)) {
-                    continue;
-                }
-                if ((randomNumber >= 58) && (randomNumber <= 64)) {
-                    continue;
-                }
-                if ((randomNumber >= 91) && (randomNumber <= 96)) {
-                    continue;
-                }
-                if ((randomNumber >= 123) && (randomNumber <= 126)) {
-                    continue;
-                }
-            }
-            iteration++;
-            password += String.fromCharCode(randomNumber);
-        }
-        return password;
-    }
-});
-
-function password(length, special) {
-    var iteration = 0;
-    var password = "";
-    var randomNumber;
-    if (special == undefined) {
-        var special = false;
-    }
-    while (iteration < length) {
-        randomNumber = (Math.floor((Math.random() * 100)) % 94) + 33;
-        if (!special) {
-            if ((randomNumber >= 33) && (randomNumber <= 47)) {
-                continue;
-            }
-            if ((randomNumber >= 58) && (randomNumber <= 64)) {
-                continue;
-            }
-            if ((randomNumber >= 91) && (randomNumber <= 96)) {
-                continue;
-            }
-            if ((randomNumber >= 123) && (randomNumber <= 126)) {
-                continue;
-            }
-        }
-        if ((randomNumber >= 91) && (randomNumber <= 96)) {
-          continue;
-        }
-        if ((randomNumber >= 123) && (randomNumber <= 126)) {
-          continue;
-        }
-      }
-      iteration++;
-      password += String.fromCharCode(randomNumber);
-    }
-    return password;
 }
