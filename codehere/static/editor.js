@@ -50,6 +50,9 @@ $(document).ready(function() {
             code_obj.save(null, {
                 success: function(code) {
                     code_id = code.id;
+
+                    window.location.replace('/' + code_id);
+
                     $('#code_id').val(code.id);
                 },
                 error: function(code, error) {}
@@ -79,6 +82,7 @@ $(document).ready(function() {
 
     if (url_split.length >= 4 && url_split[3] !== "") {
         fetchCode(url_split[3]);
+        code_id = url_split[3];
         $('#code_id').val(url_split[3]);
     }
 });
