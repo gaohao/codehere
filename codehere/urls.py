@@ -8,8 +8,8 @@ from django.conf import settings
 # admin.autodiscover()
 
 urlpatterns = patterns('',
-	#(r'codepad/$', codepad),
-    ('^', index),
+    (r'codepad/$', codepad),
+    (r'^', index),
 )
 if settings.DEBUG:
     urlpatterns += patterns('django.contrib.staticfiles.views',
