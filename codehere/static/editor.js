@@ -32,14 +32,10 @@ $(document).ready(function() {
                 editor.setValue(code.get("content"));
             },
             error: function(code, error) {
-                $('#code_id').val((error.message));
+                alert(error.message);
             }
         });
     }
-
-    $("#get").click(function() {
-        fetchCode($('#code_id').val());
-    });
 
     $("#submit").click(function() {
         if (code_id === null) {
@@ -52,13 +48,11 @@ $(document).ready(function() {
                     code_id = code.id;
 
                     window.location.replace('/' + code_id);
-
-                    $('#code_id').val(code.id);
                 },
                 error: function(code, error) {}
             });
         } else {
-            submitCode($('#code_id').val());
+            submitCode(code_id);
         }
 
         new Ajax.Request('/codepad/', {
@@ -83,7 +77,6 @@ $(document).ready(function() {
     if (url_split.length >= 4 && url_split[3] !== "") {
         fetchCode(url_split[3]);
         code_id = url_split[3];
-        $('#code_id').val(url_split[3]);
     }
 });
 
